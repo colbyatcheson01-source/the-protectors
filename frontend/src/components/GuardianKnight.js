@@ -2,28 +2,27 @@
 
 import { useState } from 'react';
 
+const basePath = process.env.NODE_ENV === 'production' ? '/the-protectors' : '';
+
 export default function GuardianKnight() {
   const [imgError, setImgError] = useState(false);
 
   return (
     <div className="relative max-w-sm w-full">
-      {/* Glow effect behind */}
       <div className="absolute inset-0 bg-guardian-gold/5 rounded-full blur-3xl"></div>
 
-      {/* The actual photo - user needs to place guardian-of-justice.png in /public/images/ */}
       <div className="relative z-10 rounded-2xl overflow-hidden border border-guardian-gold/20 shadow-gold-lg bg-guardian-midnight">
         {!imgError ? (
           <img
-            src="/images/guardian-of-justice.png"
+            src={`${basePath}/images/guardian-of-justice.png`}
             alt="The Guardian of Justice - A hooded medieval knight grasping a sword pointed downward with wings of arrows"
             className="w-full h-auto"
             onError={() => setImgError(true)}
           />
         ) : (
           <div className="p-4">
-            {/* SVG Knight illustration as fallback, also shown as primary branding */}
             <img
-              src="/images/guardian-of-justice.svg"
+              src={`${basePath}/images/guardian-of-justice.svg`}
               alt="The Guardian of Justice - A hooded medieval knight grasping a sword pointed downward with wings of arrows"
               className="w-full h-auto"
             />
@@ -31,7 +30,6 @@ export default function GuardianKnight() {
         )}
       </div>
 
-      {/* Badge text below image */}
       <div className="mt-6 text-center">
         <div className="font-display text-2xl font-bold text-white tracking-wide">
           The <span className="text-guardian-gold">Guardian</span> of Justice

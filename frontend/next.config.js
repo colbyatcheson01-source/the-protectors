@@ -1,14 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*',
-      },
-    ];
+  output: 'export',
+  basePath: '/the-protectors',
+  assetPrefix: '/the-protectors/',
+  images: {
+    unoptimized: true,
   },
+  trailingSlash: true,
+  reactStrictMode: true,
   async headers() {
     return [
       {
