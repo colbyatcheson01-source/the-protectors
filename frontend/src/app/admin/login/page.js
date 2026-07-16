@@ -38,19 +38,23 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-biker-black flex items-center justify-center px-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-primary-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-2xl">P</span>
+          <div className="w-16 h-16 bg-biker-dark rounded-sm flex items-center justify-center mx-auto mb-4 border-2 border-biker-chrome/40">
+            <svg viewBox="0 0 100 100" className="w-8 h-8" fill="none">
+              <ellipse cx="50" cy="48" rx="18" ry="20" stroke="#e0e0e0" strokeWidth="3"/>
+              <ellipse cx="43" cy="42" rx="4" ry="5" fill="#ff6f00"/>
+              <ellipse cx="57" cy="42" rx="4" ry="5" fill="#ff6f00"/>
+            </svg>
           </div>
-          <h1 className="text-2xl font-bold text-primary-900">Admin Login</h1>
-          <p className="text-neutral-600 mt-1">The Protectors Administration Panel</p>
+          <h1 className="text-2xl font-bold text-white font-display uppercase tracking-wider">Admin Login</h1>
+          <p className="text-neutral-500 mt-1 font-mono text-sm">The Enforcers MC — Club Admin</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md border border-neutral-100 p-8">
+        <div className="bg-biker-dark border-2 border-biker-steel/60 rounded-sm p-8">
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 text-red-700 text-sm">{error}</div>
+            <div className="bg-biker-blood/20 border-2 border-biker-blood/40 rounded-sm p-4 mb-6 text-biker-flame text-sm font-mono">{error}</div>
           )}
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -61,7 +65,7 @@ export default function AdminLoginPage() {
                 value={formData.email}
                 onChange={(e) => setFormData(p => ({ ...p, email: e.target.value }))}
                 className="input"
-                placeholder="admin@theprotectors.ca"
+                placeholder="[admin email]"
                 required
                 autoComplete="email"
               />
@@ -85,8 +89,8 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center mt-6 text-sm text-neutral-500">
-          <a href="/" className="text-primary-500 hover:underline">&larr; Back to main site</a>
+        <p className="text-center mt-6 text-sm text-neutral-600 font-mono">
+          <a href="/" className="text-biker-flame hover:underline">&larr; Back to main site</a>
         </p>
       </div>
     </div>

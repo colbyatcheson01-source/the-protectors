@@ -4,7 +4,7 @@ const ALGORITHM = 'aes-256-cbc';
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'default-key-change-in-production-12345';
 
 function getKey(key) {
-  return crypto.scryptSync(key, 'protectors-salt', 32);
+  return crypto.scryptSync(key, 'enforcers-salt', 32);
 }
 
 function encrypt(text) {

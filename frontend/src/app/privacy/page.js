@@ -1,23 +1,23 @@
 export default function PrivacyPage() {
   return (
     <>
-      <section className="bg-guardian-void relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-guardian-gold/5 via-transparent to-transparent"></div>
+      <section className="bg-biker-black relative overflow-hidden py-20 leather-bg">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-biker-flame/5 via-transparent to-transparent"></div>
         <div className="container-custom relative z-10 text-center">
-          <div className="shield-badge mb-4 inline-flex">Your Trust Matters</div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display">Privacy Policy</h1>
-          <p className="text-xl text-neutral-300 max-w-3xl mx-auto">How we protect your personal information in compliance with Canadian privacy laws.</p>
+          <div className="patch-badge-flame mb-4 inline-flex">Your Trust Matters</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display uppercase tracking-tighter">Privacy Policy</h1>
+          <p className="text-xl text-neutral-400 max-w-3xl mx-auto font-mono">How we protect your personal information in compliance with Canadian privacy laws.</p>
         </div>
       </section>
 
-      <section className="section bg-guardian-midnight">
+      <section className="section bg-biker-dark">
         <div className="container-custom max-w-3xl mx-auto">
           <div className="text-sm text-neutral-500 mb-8">Last updated: January 2024</div>
 
           <div className="space-y-8">
             <div>
               <h2 className="text-2xl font-bold text-white mb-4 font-display">1. Introduction</h2>
-              <p className="text-neutral-400 leading-relaxed">The Protectors (&ldquo;we,&rdquo; &ldquo;our,&rdquo; &ldquo;us&rdquo;) is committed to protecting the privacy of all individuals who interact with our organization. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information in accordance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and other applicable Canadian privacy laws.</p>
+              <p className="text-neutral-400 leading-relaxed">The Enforcers (&ldquo;we,&rdquo; &ldquo;our,&rdquo; &ldquo;us&rdquo;) is committed to protecting the privacy of all individuals who interact with our organization. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information in accordance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and other applicable Canadian privacy laws.</p>
             </div>
 
             <div>
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-2xl font-bold text-white mb-4 font-display">9. Contact Us</h2>
               <p className="text-neutral-400 leading-relaxed mb-4">For questions about this Privacy Policy or to exercise your privacy rights, please contact our Privacy Officer:</p>
-              <p className="text-neutral-400">Email: <span className="text-guardian-gold">[insert privacy email]</span><br />Mail: The Protectors, Privacy Officer, [Address], Canada</p>
+              <p className="text-neutral-400">Email: <span className="text-guardian-gold">[insert privacy email]</span><br />Mail: The Enforcers, Privacy Officer, [Address], Canada</p>
             </div>
           </div>
         </div>

@@ -9,13 +9,13 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans text-neutral-200 bg-guardian-midnight antialiased;
+    @apply font-sans text-neutral-300 bg-biker-black antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-white font-display;
+    @apply font-semibold text-white font-display uppercase tracking-wider;
   }
   a {
-    @apply text-guardian-gold hover:text-guardian-goldLight transition-colors;
+    @apply text-biker-chrome hover:text-biker-flame transition-colors;
   }
   p {
     @apply text-neutral-300;
@@ -24,35 +24,46 @@
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-guardian-midnight disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-sm font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-biker-black disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-sm;
   }
   .btn-primary {
-    @apply btn bg-guardian-gold text-guardian-void hover:bg-guardian-goldLight focus:ring-guardian-gold shadow-gold hover:shadow-gold-lg uppercase tracking-wider text-sm;
+    @apply btn bg-biker-flame text-biker-black hover:bg-biker-flameLight focus:ring-biker-flame shadow-flame hover:shadow-biker-lg border-2 border-biker-flame;
   }
   .btn-secondary {
-    @apply btn bg-transparent text-guardian-gold border-2 border-guardian-gold hover:bg-guardian-gold/10 focus:ring-guardian-gold uppercase tracking-wider text-sm;
+    @apply btn bg-transparent text-biker-chrome border-2 border-biker-chrome hover:bg-biker-chrome/10 hover:text-biker-flame hover:border-biker-flame focus:ring-biker-chrome;
   }
   .btn-accent {
-    @apply btn bg-guardian-steel text-guardian-void hover:bg-guardian-steelLight focus:ring-guardian-steel uppercase tracking-wider text-sm;
+    @apply btn bg-biker-blood text-white hover:bg-biker-bloodLight focus:ring-biker-blood border-2 border-biker-bloodLight;
   }
   .card {
-    @apply bg-guardian-midnight/80 rounded-xl shadow-lg border border-guardian-iron/60 p-6 hover:border-guardian-gold/30 hover:shadow-gold transition-all duration-300 backdrop-blur-sm;
+    @apply bg-biker-dark/90 rounded-sm border-2 border-biker-steel/60 p-6 hover:border-biker-flame/40 transition-all duration-300;
   }
-  .card-knight {
+  .card-biker {
     @apply card relative overflow-hidden;
   }
-  .card-knight::before {
+  .card-biker::before {
     content: '';
-    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-guardian-gold via-guardian-goldLight to-guardian-gold opacity-60;
+    @apply absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-biker-flame via-biker-flameLight to-biker-blood;
   }
+
+  /* Stitched border effect (biker patch style) */
+  .stitch-border {
+    border: 2px dashed #606060;
+    @apply rounded-sm p-4;
+  }
+  .stitch-border-gold {
+    border: 2px dashed #b8860b;
+    @apply rounded-sm p-4;
+  }
+
   .input {
-    @apply w-full px-4 py-3 rounded-lg border border-guardian-iron bg-guardian-void/80 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-guardian-gold focus:border-transparent transition-all;
+    @apply w-full px-4 py-3 rounded-sm border-2 border-biker-steel bg-biker-black/80 text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-biker-flame focus:border-biker-flame transition-all;
   }
   .input-error {
-    @apply border-red-500 focus:ring-red-500;
+    @apply border-biker-blood focus:ring-biker-blood;
   }
   .label {
-    @apply block text-sm font-medium text-neutral-300 mb-1 tracking-wide uppercase text-xs;
+    @apply block text-sm font-bold text-neutral-300 mb-1 tracking-widest uppercase text-xs;
   }
   .section {
     @apply py-16 md:py-24;
@@ -61,64 +72,80 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   .page-title {
-    @apply text-4xl md:text-5xl font-bold text-white mb-6 font-display;
+    @apply text-4xl md:text-5xl font-bold text-white mb-6 font-display uppercase tracking-wider;
   }
   .page-subtitle {
-    @apply text-xl text-neutral-300 max-w-3xl;
+    @apply text-xl text-neutral-400 max-w-3xl;
+  }
+
+  /* Biker patch badge */
+  .patch-badge {
+    @apply inline-flex items-center gap-2 px-4 py-1.5 border-2 border-biker-chrome bg-biker-black text-biker-chrome text-xs font-bold uppercase tracking-widest;
+    clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
+  }
+  .patch-badge-flame {
+    @apply patch-badge border-biker-flame text-biker-flame;
   }
 
   /* Decorative divider */
-  .divider-guardian {
+  .divider-biker {
     @apply flex items-center justify-center gap-4 my-8;
   }
-  .divider-guardian::before,
-  .divider-guardian::after {
+  .divider-biker::before,
+  .divider-biker::after {
     content: '';
-    @apply block h-px flex-1 bg-gradient-to-r from-transparent via-guardian-gold/50 to-transparent;
+    @apply block h-0.5 flex-1;
+    background: repeating-linear-gradient(90deg, #808080, #808080 8px, transparent 8px, transparent 16px);
   }
-  .divider-guardian-icon {
-    @apply w-6 h-6 text-guardian-gold;
+  .divider-biker-icon {
+    @apply w-6 h-6 text-biker-flame;
   }
 
   /* Section with background pattern */
-  .section-knight {
+  .section-biker {
     @apply section relative;
   }
-  .section-knight::before {
+  .section-biker::before {
     content: '';
-    @apply absolute inset-0 opacity-[0.03] bg-no-repeat bg-center;
-    background-image: url('/images/guardian-of-justice.svg');
-    background-size: 400px;
+    @apply absolute inset-0 opacity-[0.02] bg-no-repeat bg-center;
+    background-image: url('/images/enforcers-logo.svg');
+    background-size: 300px;
     background-position: center;
   }
 
-  /* Gold border accent */
-  .border-gold-accent {
-    @apply border-l-4 border-guardian-gold pl-4;
+  /* Flame accent bar */
+  .flame-bar {
+    @apply relative overflow-hidden;
+  }
+  .flame-bar::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-1;
+    background: linear-gradient(90deg, transparent, #ff6f00, #ff8f00, #ff6f00, transparent);
+  }
+
+  /* Leather grain texture overlay */
+  .leather-bg {
+    @apply relative;
+  }
+  .leather-bg::before {
+    content: '';
+    @apply absolute inset-0 opacity-5;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Winged skull divider */
+  .wing-divider {
+    @apply flex items-center justify-center gap-4 my-6;
+  }
+  .wing-divider::before,
+  .wing-divider::after {
+    content: '///';
+    @apply text-biker-steel text-sm tracking-widest;
   }
 
   /* Quote styling */
-  .quote-guardian {
-    @apply relative pl-8 italic text-neutral-200 border-l-2 border-guardian-gold/50;
-  }
-  .quote-guardian::before {
-    content: '\201C';
-    @apply absolute -left-1 top-0 text-4xl text-guardian-gold/40 font-serif leading-none;
-  }
-
-  /* Shield badge */
-  .shield-badge {
-    @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-guardian-void/60 border border-guardian-iron/60 text-guardian-gold text-sm font-medium;
-  }
-  .shield-badge::before {
-    content: '';
-    @apply block w-3 h-3.5 bg-guardian-gold flex-shrink-0;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  }
-
-  /* Gold glow effect */
-  .glow-gold {
-    box-shadow: 0 0 20px rgba(212, 160, 23, 0.15), 0 0 40px rgba(212, 160, 23, 0.05);
+  .quote-biker {
+    @apply relative pl-6 italic text-neutral-300 border-l-2 border-biker-flame font-display uppercase tracking-wide;
   }
 }
 
@@ -134,24 +161,13 @@
   border-width: 0;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  @apply bg-guardian-void;
-}
-::-webkit-scrollbar-thumb {
-  @apply bg-guardian-iron rounded-full;
-}
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-guardian-steelDark;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { @apply bg-biker-black; }
+::-webkit-scrollbar-thumb { @apply bg-biker-steel border-2 border-biker-black; }
+::-webkit-scrollbar-thumb:hover { @apply bg-biker-chromeDark; }
 
-/* Selection */
-::selection {
-  @apply bg-guardian-gold/30 text-white;
-}
+::selection { @apply bg-biker-flame/40 text-white; }
 
 @media (prefers-reduced-motion: reduce) {
   * {

@@ -1,5 +1,5 @@
-const TOKEN_KEY = 'protectors_admin_token';
-const ADMIN_KEY = 'protectors_admin_data';
+const TOKEN_KEY = 'enforcers_admin_token';
+const ADMIN_KEY = 'enforcers_admin_data';
 
 export function getToken() {
   if (typeof window === 'undefined') return null;

@@ -44,14 +44,14 @@ export default function ContactPage() {
       <>
         <section className="bg-guardian-void py-20">
           <div className="container-custom text-center">
-            <div className="shield-badge mb-4 inline-flex">Message Sent</div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display">Your Message Reaches Us</h1>
+          <div className="patch-badge-flame mb-4 inline-flex">Message Sent</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display uppercase tracking-tighter">Message Received</h1>
           </div>
         </section>
-        <section className="section bg-guardian-midnight">
+        <section className="section bg-biker-dark">
           <div className="container-custom max-w-xl mx-auto text-center">
-            <div className="w-20 h-20 bg-guardian-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-guardian-gold/30">
-              <svg className="w-10 h-10 text-guardian-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 bg-biker-flame/10 rounded-sm flex items-center justify-center mx-auto mb-6 border-2 border-biker-flame/30">
+              <svg className="w-10 h-10 text-biker-flame" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
@@ -65,22 +65,22 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="bg-guardian-void relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-guardian-gold/5 via-transparent to-transparent"></div>
+      <section className="bg-biker-black relative overflow-hidden py-20 leather-bg">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-biker-flame/5 via-transparent to-transparent"></div>
         <div className="container-custom relative z-10 text-center">
-          <div className="shield-badge mb-4 inline-flex">Reach Out</div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display">Contact the Guardian</h1>
-          <p className="text-xl text-neutral-300 max-w-3xl mx-auto">
+          <div className="patch-badge-flame mb-4 inline-flex">Reach Out</div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white font-display uppercase tracking-tighter">Contact the Club</h1>
+          <p className="text-xl text-neutral-400 max-w-3xl mx-auto font-mono">
             Have a question, partnership idea, or need support? We&apos;re here to help.
           </p>
         </div>
       </section>
 
-      <section className="section bg-guardian-midnight">
+      <section className="section bg-biker-dark">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6 font-display">Send a Message</h2>
+              <h2 className="text-2xl font-bold text-white mb-6 font-display uppercase tracking-wider">Send a Message</h2>
               {serverError && <div className="bg-red-950/50 border border-red-800/50 rounded-lg p-4 mb-6 text-red-300 text-sm">{serverError}</div>}
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 <div>
@@ -110,31 +110,31 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold text-white mb-6 font-display">Other Ways to Reach Us</h2>
+              <h2 className="text-2xl font-bold text-white mb-6 font-display uppercase tracking-wider">Other Ways to Reach Us</h2>
               <div className="space-y-6">
                 <div className="card">
-                  <h3 className="font-semibold text-white mb-2 font-display">Email</h3>
-                  <p className="text-neutral-400 text-sm">
-                    General Inquiries: <span className="text-guardian-gold">[insert email]</span>
+                  <h3 className="font-bold text-white mb-2 font-display uppercase tracking-wider text-sm">Email</h3>
+                  <p className="text-neutral-500 text-sm font-mono">
+                    General Inquiries: <span className="text-biker-flame">[insert email]</span>
                   </p>
-                  <p className="text-neutral-400 text-sm">
-                    Volunteer Program: <span className="text-guardian-gold">[insert email]</span>
-                  </p>
-                </div>
-                <div className="card">
-                  <h3 className="font-semibold text-white mb-2 font-display">Phone</h3>
-                  <p className="text-neutral-400 text-sm">
-                    <span className="text-guardian-gold">[insert phone number]</span>
+                  <p className="text-neutral-500 text-sm font-mono">
+                    Club Enlistment: <span className="text-biker-flame">[insert email]</span>
                   </p>
                 </div>
                 <div className="card">
-                  <h3 className="font-semibold text-white mb-2 font-display">Anonymous Tip</h3>
-                  <p className="text-neutral-400 text-sm mb-4">Have information about a safety concern? Submit an anonymous tip. Your identity will be protected.</p>
-                  <a href="/contact/tip" className="btn-secondary text-sm">Submit Anonymous Tip</a>
+                  <h3 className="font-bold text-white mb-2 font-display uppercase tracking-wider text-sm">Phone</h3>
+                  <p className="text-neutral-500 text-sm font-mono">
+                    <span className="text-biker-flame">[insert phone number]</span>
+                  </p>
                 </div>
-                <div className="bg-red-950/30 border border-red-800/40 rounded-xl p-6">
-                  <h3 className="font-semibold text-red-300 mb-2 font-display">In an Emergency</h3>
-                  <p className="text-red-400/80 text-sm">Do not use this form for emergencies. <a href="tel:911" className="text-red-300 font-bold hover:underline">Call 911 immediately.</a></p>
+                <div className="card">
+                  <h3 className="font-bold text-white mb-2 font-display uppercase tracking-wider text-sm">Anonymous Tip</h3>
+                  <p className="text-neutral-500 text-sm mb-4 font-mono">Have information about a safety concern? Submit an anonymous tip. Your identity is protected.</p>
+                  <a href="/contact/tip" className="btn-secondary text-sm">Submit Tip</a>
+                </div>
+                <div className="bg-biker-blood/10 border-2 border-biker-blood/30 rounded-sm p-6">
+                  <h3 className="font-bold text-biker-flame mb-2 font-display uppercase tracking-wider text-sm">In an Emergency</h3>
+                  <p className="text-neutral-500 text-sm font-mono">Do not use this form for emergencies. <a href="tel:911" className="text-biker-flame font-bold hover:underline">Call 911 immediately.</a></p>
                 </div>
               </div>
             </div>

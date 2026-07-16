@@ -1,7 +1,7 @@
 {
-  "name": "the-protectors-backend",
+  "name": "the-enforcers-backend",
   "version": "1.0.0",
-  "description": "The Protectors - Community Safety Nonprofit API",
+  "description": "The Enforcers MC - Community Safety Nonprofit API",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
