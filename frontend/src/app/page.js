@@ -56,7 +56,7 @@ export default function HomePage() {
               </h1>
               <div className="divider-biker w-48"></div>
               <p className="text-lg text-neutral-400 mb-6 max-w-2xl font-mono leading-relaxed">
-                Riding for justice. A Canadian street club dedicated to community safety, victim support, and violence prevention through lawful action.
+                Riding for justice. A Canadian street club dedicated to community safety, victim support, and violence prevention.
               </p>
               <p className="text-base text-neutral-500 mb-8 max-w-2xl font-mono">
                 Building safer communities through support, awareness, and action.
