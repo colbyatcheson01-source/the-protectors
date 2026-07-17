@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-const basePath = process.env.NODE_ENV === 'production' ? '/the-protectors' : '';
+const basePath = process.env.NODE_ENV === 'production' ? '/the-enforcers' : '';
 
 export default function GuardianKnight() {
   const [imgError, setImgError] = useState(false);

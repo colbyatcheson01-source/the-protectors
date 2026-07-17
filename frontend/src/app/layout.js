@@ -2,7 +2,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import './globals.css';
 
-const basePath = process.env.NODE_ENV === 'production' ? '/the-protectors' : '';
+const basePath = process.env.NODE_ENV === 'production' ? '/the-enforcers' : '';
 
 export const metadata = {
   title: 'The Enforcers SC | Stand for What\'s Right',
