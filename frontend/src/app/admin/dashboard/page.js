@@ -82,6 +82,10 @@ export default function AdminDashboard() {
               <p className="text-3xl font-bold text-green-600">{stats.approvedVolunteers}</p>
             </div>
             <div className="card">
+              <p className="text-sm text-neutral-500 mb-1">Total Members</p>
+              <p className="text-3xl font-bold text-blue-600">{stats.totalMembers}</p>
+            </div>
+            <div className="card">
               <p className="text-sm text-neutral-500 mb-1">Anonymous Tips</p>
               <p className="text-3xl font-bold text-primary-500">{stats.totalTips}</p>
             </div>
@@ -98,14 +102,15 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="card">
-            <h3 className="font-semibold text-primary-900 mb-4">Important Notice</h3>
-            <div className="text-sm text-neutral-600 space-y-2">
-              <p>All volunteer data is encrypted at rest. Only authorized administrators have access.</p>
-              <p>Background screening results are stored as eligibility status only — no sensitive details are retained.</p>
-              <p>All admin actions are logged for audit purposes.</p>
+            <div className="card">
+              <h3 className="font-semibold text-primary-900 mb-4">Important Notice</h3>
+              <div className="text-sm text-neutral-600 space-y-2">
+                <p>All volunteer data is encrypted at rest. Only authorized administrators have access.</p>
+                <p>Background screening results and rejection reasons are stored encrypted and visible to admins only.</p>
+                <p>Approved volunteers can be promoted to Members. Members track a &quot;member since&quot; date.</p>
+                <p>All admin actions are logged for audit purposes.</p>
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

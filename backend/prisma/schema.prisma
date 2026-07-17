@@ -14,6 +14,11 @@ enum VolunteerStatus {
   FLAGGED
 }
 
+enum MemberType {
+  VOLUNTEER
+  MEMBER
+}
+
 enum ScreeningStatus {
   NOT_STARTED
   IN_PROGRESS
@@ -43,6 +48,9 @@ model Volunteer {
   status        VolunteerStatus  @default(PENDING)
   screeningStatus ScreeningStatus @default(NOT_STARTED)
   screeningProvider String?
+  screeningNotes String?
+  memberType    MemberType       @default(VOLUNTEER)
+  memberSince   DateTime?
   notes         String?
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt

@@ -1,7 +1,7 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
 const { authenticateToken, requireRole } = require('../middleware/auth');
-const { decrypt } = require('../config/encryption');
+const { encrypt, decrypt } = require('../config/encryption');
 
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -23,6 +23,9 @@ router.get('/volunteers', async (req, res) => {
         consentDate: true,
         status: true,
         screeningStatus: true,
+        screeningNotes: true,
+        memberType: true,
+        memberSince: true,
         notes: true,
         createdAt: true,
       }
@@ -33,6 +36,7 @@ router.get('/volunteers', async (req, res) => {
       fullName: decrypt(v.fullName),
       email: decrypt(v.email),
       phone: decrypt(v.phone),
+      screeningNotes: v.screeningNotes ? decrypt(v.screeningNotes) : null,
     }));
 
     res.json(decrypted);
@@ -76,7 +80,7 @@ router.patch('/volunteers/:id/status', async (req, res) => {
 router.patch('/volunteers/:id/screening', async (req, res) => {
   try {
     const { id } = req.params;
-    const { screeningStatus } = req.body;
+    const { screeningStatus, screeningNotes } = req.body;
 
     const validScreening = ['ELIGIBLE', 'INELIGIBLE', 'IN_PROGRESS'];
     if (!validScreening.includes(screeningStatus)) {
@@ -86,8 +90,13 @@ router.patch('/volunteers/:id/screening', async (req, res) => {
     const updateData = { screeningStatus };
     if (screeningStatus === 'INELIGIBLE') {
       updateData.status = 'INELIGIBLE';
+      if (screeningNotes) {
+        updateData.screeningNotes = encrypt(screeningNotes);
+      }
     } else if (screeningStatus === 'ELIGIBLE') {
       updateData.status = 'APPROVED';
+      updateData.memberType = 'MEMBER';
+      updateData.memberSince = new Date();
     }
 
     const volunteer = await prisma.volunteer.update({
@@ -99,15 +108,52 @@ router.patch('/volunteers/:id/screening', async (req, res) => {
       data: {
         action: 'SCREENING_UPDATED',
         adminId: req.admin.id,
-        details: `Volunteer ${id} screening status: ${screeningStatus}`,
+        details: `Volunteer ${id} screening status: ${screeningStatus}${screeningNotes ? ' — reason recorded' : ''}`,
         ipAddress: req.ip,
       }
     });
 
-    res.json({ message: 'Screening status updated', id: volunteer.id, screeningStatus: volunteer.screeningStatus, status: volunteer.status });
+    res.json({ message: 'Screening status updated', id: volunteer.id, screeningStatus: volunteer.screeningStatus, status: volunteer.status, memberType: volunteer.memberType, memberSince: volunteer.memberSince });
   } catch (error) {
     console.error('Screening update error:', error);
     res.status(500).json({ error: 'Failed to update screening status' });
+  }
+});
+
+router.patch('/volunteers/:id/member-type', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { memberType } = req.body;
+
+    if (!['VOLUNTEER', 'MEMBER'].includes(memberType)) {
+      return res.status(400).json({ error: 'Invalid member type' });
+    }
+
+    const updateData = { memberType };
+    if (memberType === 'MEMBER') {
+      updateData.memberSince = new Date();
+    } else {
+      updateData.memberSince = null;
+    }
+
+    const volunteer = await prisma.volunteer.update({
+      where: { id },
+      data: updateData
+    });
+
+    await prisma.auditLog.create({
+      data: {
+        action: 'MEMBER_TYPE_UPDATED',
+        adminId: req.admin.id,
+        details: `Volunteer ${id} member type changed to ${memberType}`,
+        ipAddress: req.ip,
+      }
+    });
+
+    res.json({ message: 'Member type updated', id: volunteer.id, memberType: volunteer.memberType, memberSince: volunteer.memberSince });
+  } catch (error) {
+    console.error('Member type update error:', error);
+    res.status(500).json({ error: 'Failed to update member type' });
   }
 });
 
@@ -124,6 +170,9 @@ router.get('/volunteers/export', async (req, res) => {
         skills: true,
         status: true,
         screeningStatus: true,
+        screeningNotes: true,
+        memberType: true,
+        memberSince: true,
         consentGiven: true,
         consentDate: true,
         createdAt: true,
@@ -135,6 +184,7 @@ router.get('/volunteers/export', async (req, res) => {
       fullName: decrypt(v.fullName),
       email: decrypt(v.email),
       phone: decrypt(v.phone),
+      screeningNotes: v.screeningNotes ? decrypt(v.screeningNotes) : null,
     }));
 
     res.json(decrypted);
@@ -186,6 +236,7 @@ router.get('/stats', async (req, res) => {
     const volunteerCount = await prisma.volunteer.count();
     const pendingCount = await prisma.volunteer.count({ where: { status: 'PENDING' } });
     const approvedCount = await prisma.volunteer.count({ where: { status: 'APPROVED' } });
+    const memberCount = await prisma.volunteer.count({ where: { memberType: 'MEMBER' } });
     const tipCount = await prisma.anonymousTip.count();
     const contactCount = await prisma.contactSubmission.count();
     const recentVolunteers = await prisma.volunteer.count({
@@ -196,6 +247,7 @@ router.get('/stats', async (req, res) => {
       totalVolunteers: volunteerCount,
       pendingApplications: pendingCount,
       approvedVolunteers: approvedCount,
+      totalMembers: memberCount,
       totalTips: tipCount,
       totalContacts: contactCount,
       recentVolunteers,

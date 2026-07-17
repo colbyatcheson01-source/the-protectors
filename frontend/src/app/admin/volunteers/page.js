@@ -11,6 +11,7 @@ export default function AdminVolunteersPage() {
   const [filter, setFilter] = useState('ALL');
   const [updating, setUpdating] = useState(null);
   const [message, setMessage] = useState('');
+  const [rejectNotes, setRejectNotes] = useState({});
 
   useEffect(() => {
     if (!isAuthenticated()) {
@@ -52,12 +53,35 @@ export default function AdminVolunteersPage() {
     setUpdating(id);
     setMessage('');
     try {
+      const body = { screeningStatus };
+      if (screeningStatus === 'INELIGIBLE' && rejectNotes[id]) {
+        body.screeningNotes = rejectNotes[id];
+      }
       const data = await apiRequest(`/volunteers/${id}/screening`, {
         method: 'PATCH',
-        body: JSON.stringify({ screeningStatus }),
+        body: JSON.stringify(body),
       });
-      setVolunteers(prev => prev.map(v => v.id === id ? { ...v, screeningStatus: data.screeningStatus, status: data.status } : v));
+      setVolunteers(prev => prev.map(v => v.id === id ? { ...v, screeningStatus: data.screeningStatus, status: data.status, memberType: data.memberType, memberSince: data.memberSince } : v));
+      setRejectNotes(prev => { const n = { ...prev }; delete n[id]; return n; });
       setMessage(`Screening status updated to ${screeningStatus}`);
+    } catch (err) {
+      setMessage(err.message);
+    } finally {
+      setUpdating(null);
+    }
+  };
+
+  const handleMemberTypeToggle = async (id, currentType) => {
+    setUpdating(id);
+    setMessage('');
+    const newType = currentType === 'MEMBER' ? 'VOLUNTEER' : 'MEMBER';
+    try {
+      const data = await apiRequest(`/volunteers/${id}/member-type`, {
+        method: 'PATCH',
+        body: JSON.stringify({ memberType: newType }),
+      });
+      setVolunteers(prev => prev.map(v => v.id === id ? { ...v, memberType: data.memberType, memberSince: data.memberSince } : v));
+      setMessage(`Changed to ${newType}`);
     } catch (err) {
       setMessage(err.message);
     } finally {
@@ -150,6 +174,9 @@ export default function AdminVolunteersPage() {
                     <p className="text-sm text-neutral-500">{v.email} | {v.phone}</p>
                   </div>
                   <div className="flex items-center gap-2">
+                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${v.memberType === 'MEMBER' ? 'bg-blue-100 text-blue-800' : 'bg-neutral-100 text-neutral-600'}`}>
+                      {v.memberType === 'MEMBER' ? 'Member' : 'Volunteer'}
+                    </span>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${statusColors[v.status] || 'bg-neutral-100 text-neutral-800'}`}>
                       {v.status}
                     </span>
@@ -168,13 +195,26 @@ export default function AdminVolunteersPage() {
                   </div>
                 </div>
 
+                {v.screeningNotes && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+                    <span className="text-xs font-semibold text-red-700 uppercase tracking-wide">Screening Notes (Admin Only)</span>
+                    <p className="text-sm text-red-800 mt-1">{v.screeningNotes}</p>
+                  </div>
+                )}
+
+                {v.memberSince && (
+                  <div className="text-xs text-neutral-400 mb-2">
+                    Member since: {new Date(v.memberSince).toLocaleDateString('en-CA')}
+                  </div>
+                )}
+
                 <div className="text-xs text-neutral-400 mb-4">
                   Applied: {new Date(v.createdAt).toLocaleDateString('en-CA')} |
                   Consent: {v.consentGiven ? 'Yes' : 'No'} |
                   {v.notes && <span> Notes: {v.notes}</span>}
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 items-center">
                   <button
                     onClick={() => handleScreeningUpdate(v.id, 'ELIGIBLE')}
                     disabled={updating === v.id}
@@ -182,13 +222,42 @@ export default function AdminVolunteersPage() {
                   >
                     Approve
                   </button>
-                  <button
-                    onClick={() => handleScreeningUpdate(v.id, 'INELIGIBLE')}
-                    disabled={updating === v.id}
-                    className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors disabled:opacity-50"
-                  >
-                    Reject
-                  </button>
+
+                  <div className="flex items-center gap-2">
+                    {rejectNotes[v.id] !== undefined ? (
+                      <>
+                        <input
+                          type="text"
+                          value={rejectNotes[v.id] || ''}
+                          onChange={(e) => setRejectNotes(prev => ({ ...prev, [v.id]: e.target.value }))}
+                          placeholder="Reason for rejection..."
+                          className="px-2 py-1.5 text-sm border border-red-200 rounded-lg w-48 focus:outline-none focus:ring-1 focus:ring-red-400"
+                        />
+                        <button
+                          onClick={() => handleScreeningUpdate(v.id, 'INELIGIBLE')}
+                          disabled={updating === v.id}
+                          className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors disabled:opacity-50"
+                        >
+                          Confirm Reject
+                        </button>
+                        <button
+                          onClick={() => setRejectNotes(prev => { const n = { ...prev }; delete n[v.id]; return n; })}
+                          className="px-2 py-1.5 text-sm text-neutral-500 hover:text-neutral-700"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={() => setRejectNotes(prev => ({ ...prev, [v.id]: '' }))}
+                        disabled={updating === v.id}
+                        className="px-3 py-1.5 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors disabled:opacity-50"
+                      >
+                        Reject
+                      </button>
+                    )}
+                  </div>
+
                   <button
                     onClick={() => handleStatusUpdate(v.id, 'FLAGGED')}
                     disabled={updating === v.id}
@@ -196,6 +265,18 @@ export default function AdminVolunteersPage() {
                   >
                     Flag for Review
                   </button>
+
+                  {v.status === 'APPROVED' && (
+                    <button
+                      onClick={() => handleMemberTypeToggle(v.id, v.memberType)}
+                      disabled={updating === v.id}
+                      className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors disabled:opacity-50 ${
+                        v.memberType === 'MEMBER' ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200' : 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                      }`}
+                    >
+                      {v.memberType === 'MEMBER' ? 'Demote to Volunteer' : 'Promote to Member'}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
