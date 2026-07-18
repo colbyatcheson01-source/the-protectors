@@ -118,7 +118,7 @@ export default function ContactPage() {
                     General Inquiries: <span className="text-biker-flame">TheEnforcersSC@gmail.com</span>
                   </p>
                   <p className="text-neutral-500 text-sm font-mono">
-                    Club Enlistment: <span className="text-biker-flame">TheEnforcersSC@gmail.com</span>
+                    Club Enlistment: <span className="text-biker-flame">TheEnforcersSC@gmail.com</span><br /><span className="text-xs text-neutral-600">(include "Enlistment" in the subject line)</span>
                   </p>
                 </div>
                 <div className="card">
