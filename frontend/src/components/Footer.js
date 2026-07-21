@@ -73,9 +73,6 @@ export default function Footer() {
             &copy; {currentYear} The Enforcers SC. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/admin/login" className="text-neutral-700 hover:text-biker-flame transition-colors text-xs font-mono">
-              Admin
-            </Link>
             <p className="text-neutral-700 text-xs font-mono">
               &ldquo;Stand for what&rsquo;s right&rdquo;
             </p>

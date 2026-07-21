@@ -1,4 +1,12 @@
-require('dotenv').config();
+const dotenv = require('dotenv');
+const path = require('path');
+const envResult = dotenv.config({ path: path.join(__dirname, '../.env') });
+if (envResult.parsed && envResult.parsed.DATABASE_URL) {
+  process.env.DATABASE_URL = envResult.parsed.DATABASE_URL;
+}
+if (envResult.parsed && envResult.parsed.ENCRYPTION_KEY) {
+  process.env.ENCRYPTION_KEY = envResult.parsed.ENCRYPTION_KEY;
+}
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,13 +23,14 @@ const documentRoutes = require('./routes/documents');
 const prisma = new PrismaClient();
 const app = express();
 
-app.use(helmet({ crossOriginResourcePolicy: false }));
+app.set('trust proxy', true);
+app.use(helmet());
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
-app.use('/uploads', express.static('uploads'));
+// Documents served only through authenticated /api/documents/:id route
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

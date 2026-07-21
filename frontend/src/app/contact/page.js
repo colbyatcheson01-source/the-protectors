@@ -115,10 +115,10 @@ export default function ContactPage() {
                 <div className="card">
                   <h3 className="font-bold text-white mb-2 font-display uppercase tracking-wider text-sm">Email</h3>
                   <p className="text-neutral-500 text-sm font-mono">
-                    General Inquiries: <span className="text-biker-flame">[insert email]</span>
+                    General Inquiries: <span className="text-biker-flame">info@theenforcerssc.ca</span>
                   </p>
                   <p className="text-neutral-500 text-sm font-mono">
-                    Club Enlistment: <span className="text-biker-flame">[insert email]</span>
+                    Club Enlistment: <span className="text-biker-flame">join@theenforcerssc.ca</span>
                   </p>
                 </div>
                 <div className="card">

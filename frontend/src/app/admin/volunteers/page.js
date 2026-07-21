@@ -201,7 +201,7 @@ export default function AdminVolunteersPage() {
                     <ul className="mt-1 space-y-1">
                       {v.documents.map(d => (
                         <li key={d.id} className="text-xs text-blue-800">
-                          <a href={`/api/documents/${d.id}`} target="_blank" className="underline hover:text-blue-600">{d.originalName}</a>
+                          <a href={`/api/documents/${d.id}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-blue-600">{d.originalName}</a>
                           <span className="text-blue-400 ml-2">({(d.fileSize / 1024).toFixed(0)} KB)</span>
                         </li>
                       ))}

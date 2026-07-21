@@ -77,7 +77,7 @@ export default function VolunteerPage() {
             <p className="text-neutral-400 mb-8 leading-relaxed font-mono text-sm">
               Thank you for your interest in joining The Enforcers SC. Our team will review your application and contact you within 5-7 business days regarding next steps, including the background screening process.
             </p>
-            <p className="text-sm text-neutral-600 font-mono">Questions? <span className="text-biker-flame">[insert email]</span></p>
+            <p className="text-sm text-neutral-600 font-mono">Questions? <span className="text-biker-flame">info@theenforcerssc.ca</span></p>
           </div>
         </section>
       </>

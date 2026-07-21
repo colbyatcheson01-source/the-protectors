@@ -10,10 +10,12 @@ router.post('/', formLimiter, tipValidation, async (req, res) => {
   try {
     const { content, category } = req.body;
 
+    const safeCategory = typeof category === 'string' ? category.trim().slice(0, 100) : null;
+
     await prisma.anonymousTip.create({
       data: {
         content,
-        category: category || null,
+        category: safeCategory,
       }
     });
 

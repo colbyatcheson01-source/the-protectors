@@ -6,7 +6,7 @@ const { encrypt, decrypt } = require('../config/encryption');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-router.use(authenticateToken);
+router.use(authenticateToken, requireRole('admin', 'founder'));
 
 router.get('/volunteers', async (req, res) => {
   try {

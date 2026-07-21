@@ -26,7 +26,7 @@ export default function TermsPage() {
               { title: '8. Anonymous Tips', content: 'Anonymous tips submitted through the Site are reviewed privately by our team. We do not collect identifying information with tips. However, we reserve the right to share tip content with law enforcement if we determine in good faith that there is a risk of imminent harm or a legal obligation to do so.' },
               { title: '9. Modifications', content: 'We reserve the right to modify these Terms of Use at any time. Changes will be effective immediately upon posting to the Site. Your continued use of the Site after any modifications constitutes acceptance of the updated terms.' },
               { title: '10. Governing Law', content: 'These Terms of Use are governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein. Any disputes arising from these terms shall be resolved in the courts of Ontario.' },
-              { title: '11. Contact', content: 'For questions about these Terms of Use, please contact us at [insert email].' },
+              { title: '11. Contact', content: 'For questions about these Terms of Use, please contact us at info@theenforcerssc.ca.' },
             ].map((section, i) => (
               <div key={i}>
                 <h2 className="text-2xl font-bold text-white mb-4 font-display">{section.title}</h2>

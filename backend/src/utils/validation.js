@@ -22,7 +22,10 @@ const volunteerValidation = [
   body('phone').trim().notEmpty().withMessage('Phone number is required'),
   body('availability').trim().notEmpty().withMessage('Availability is required'),
   body('skills').trim().notEmpty().withMessage('Skills/experience is required'),
-  body('consentGiven').isBoolean().custom(value => {
+  body('consentGiven').customSanitizer(value => {
+    if (typeof value === 'string') return value === 'true' || value === '1';
+    return Boolean(value);
+  }).isBoolean().custom(value => {
     if (value !== true) {
       throw new Error('You must consent to background screening');
     }

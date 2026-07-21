@@ -83,7 +83,7 @@ export default function PrivacyPage() {
             <div>
               <h2 className="text-2xl font-bold text-white mb-4 font-display">9. Contact Us</h2>
               <p className="text-neutral-400 leading-relaxed mb-4">For questions about this Privacy Policy or to exercise your privacy rights, please contact our Privacy Officer:</p>
-              <p className="text-neutral-400">Email: <span className="text-guardian-gold">[insert privacy email]</span><br />Mail: The Enforcers, Privacy Officer, [Address], Canada</p>
+              <p className="text-neutral-400">Email: <span className="text-guardian-gold">privacy@theenforcerssc.ca</span><br />Mail: The Enforcers, Privacy Officer, [Address], Canada</p>
             </div>
           </div>
         </div>
